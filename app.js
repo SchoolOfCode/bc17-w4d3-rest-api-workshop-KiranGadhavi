@@ -109,23 +109,23 @@ app.put('/astronauts/:id', async(req, res)=>{
   return res.status(200).send({
     success: true,
     payload: astronaut
-  })
+  });
   }catch(error){
     if(error.message.includes('replace astronauts')){
       return res.status(404).send({
         success: false,
         payload: error.message
-      })
+      });
     }
     else{
       return res.status(500).send({
         success: false,
         payload: 'Internal Server Error'
-      })
+      });
     }
     
   }
-  })
+  });
 
 // Task 5
 
@@ -156,6 +156,30 @@ return res.status(404).send({
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+app.patch('/astronauts/:id', async(req, res)=>{
+  try{
+  const astronaut = await updateAstronautById(req.params.id, req.body) ;
+  return res.status(200).send({
+    success: true,
+    payload: astronaut
+  });
+  }catch(error){
+    if(error.message.includes('replace astronauts')){
+      return res.status(404).send({
+        success: false,
+        payload: error.message
+      });
+    }
+    else{
+      return res.status(500).send({
+        success: false,
+        payload: 'Internal Server Error'
+      });
+    }
+    
+  }
+  });
+
 app.listen(port, ()=>{
   return `App is running at port ${port}`
 })
